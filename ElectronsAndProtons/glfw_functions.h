@@ -4,3 +4,4 @@
 void initiaLizeGFLW();
 void setGLFWWindowHints();
 GLFWwindow* createGLFWWindow(int width, int height, const char* windowTitle);
+void setupCallbacks(GLFWwindow* window);

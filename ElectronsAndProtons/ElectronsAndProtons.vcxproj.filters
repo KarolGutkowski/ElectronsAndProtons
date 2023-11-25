@@ -10,6 +10,9 @@
     <Filter Include="glad_utilities">
       <UniqueIdentifier>{715ff123-e7e0-49c6-98de-51f7dfaf0ce4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{208b760e-3674-4963-b8df-ecf907055f76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glfw_functions.cpp">
@@ -21,6 +24,10 @@
     <ClCompile Include="glad._functions.cpp">
       <Filter>glad_utilities</Filter>
     </ClCompile>
+    <ClCompile Include="interactions.cpp" />
+    <ClCompile Include="shader_loader.cpp">
+      <Filter>shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glfw_functions.h">
@@ -29,5 +36,14 @@
     <ClInclude Include="glad_functions.h">
       <Filter>glad_utilities</Filter>
     </ClInclude>
+    <ClInclude Include="interactions.h" />
+    <ClInclude Include="shader_loader.h">
+      <Filter>shaders</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="basic_shaders.glsl">
+      <Filter>shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

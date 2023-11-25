@@ -87,11 +87,18 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="glad._functions.cpp" />
     <ClCompile Include="glfw_functions.cpp" />
+    <ClCompile Include="interactions.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="shader_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glad_functions.h" />
     <ClInclude Include="glfw_functions.h" />
+    <ClInclude Include="interactions.h" />
+    <ClInclude Include="shader_loader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="basic_shaders.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
