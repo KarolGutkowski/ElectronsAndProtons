@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CudaCompile Include="kernel.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="glfw_utilities">
+      <UniqueIdentifier>{20b1eb10-fa37-474d-97de-c69e7adce446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glad_utilities">
+      <UniqueIdentifier>{715ff123-e7e0-49c6-98de-51f7dfaf0ce4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="glfw_functions.cpp">
+      <Filter>glfw_utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>glad_utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="glad._functions.cpp">
+      <Filter>glad_utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="glfw_functions.h">
+      <Filter>glfw_utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="glad_functions.h">
+      <Filter>glad_utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
