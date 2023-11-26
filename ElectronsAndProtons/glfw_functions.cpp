@@ -12,9 +12,12 @@ void initiaLizeGFLW()
 
 void setGLFWWindowHints()
 {
+	//commented this out cause it disables me from making round points
+	/*
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	*/
 }
 
 GLFWwindow* createGLFWWindow(int width, int height,const char* windowTitle)

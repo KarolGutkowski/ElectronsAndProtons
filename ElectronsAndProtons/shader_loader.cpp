@@ -59,6 +59,7 @@ void CompileShader(GLuint shaderSource,const std::string& shaderName)
 	if (!success)
 	{
 		char infoLog[512];
+		glGetShaderInfoLog(shaderSource, 512, NULL, infoLog);
 		std::cout << "ERROR when compiling shader with name" << shaderName << std::endl;
 		std::cout << "Message: " << infoLog << std::endl;
 	}

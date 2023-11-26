@@ -28,6 +28,7 @@
     <ClCompile Include="shader_loader.cpp">
       <Filter>shaders</Filter>
     </ClCompile>
+    <ClCompile Include="ElectricField.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glfw_functions.h">
@@ -40,6 +41,13 @@
     <ClInclude Include="shader_loader.h">
       <Filter>shaders</Filter>
     </ClInclude>
+    <ClInclude Include="program_loader.h">
+      <Filter>shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel.h" />
+    <ClInclude Include="ElectricField.h" />
+    <ClInclude Include="helper_cuda.h" />
+    <ClInclude Include="helper_string.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_shaders.glsl">

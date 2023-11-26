@@ -90,11 +90,17 @@
     <ClCompile Include="interactions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="shader_loader.cpp" />
+    <ClCompile Include="ElectricField.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ElectricField.h" />
     <ClInclude Include="glad_functions.h" />
     <ClInclude Include="glfw_functions.h" />
+    <ClInclude Include="helper_cuda.h" />
+    <ClInclude Include="helper_string.h" />
     <ClInclude Include="interactions.h" />
+    <ClInclude Include="kernel.h" />
+    <ClInclude Include="program_loader.h" />
     <ClInclude Include="shader_loader.h" />
   </ItemGroup>
   <ItemGroup>
