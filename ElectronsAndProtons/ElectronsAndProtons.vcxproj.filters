@@ -29,6 +29,7 @@
       <Filter>shaders</Filter>
     </ClCompile>
     <ClCompile Include="ElectricField.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glfw_functions.h">

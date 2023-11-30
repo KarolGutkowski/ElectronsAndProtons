@@ -11,6 +11,10 @@ public:
 	float2* velocities;
 	float2* accelerations;
 	int* charges;
+	float2* positions_d;
+	float2* velocities_d;
+	float2* accelerations_d;
+	int* charges_d;
 	ElectricField(int particlesCount);
 	~ElectricField();
 private:
