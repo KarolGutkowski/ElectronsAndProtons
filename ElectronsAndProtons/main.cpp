@@ -8,11 +8,10 @@
 #include "cuda_gl_interop.h"
 #include "ElectricField.h"
 #include <cassert>
-#include <cassert>
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
-#define PARTICLES_COUNT 1000
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
+#define PARTICLES_COUNT 100
 
 int main(int argc, char** argv)
 {
@@ -33,7 +32,7 @@ int main(int argc, char** argv)
 
     GLuint program = getProgramFrom("basic_shaders.glsl");
 
-    ElectricField* field = new ElectricField(PARTICLES_COUNT);
+    ElectricField* field = new ElectricField(PARTICLES_COUNT, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     float* points = (float*)malloc(sizeof(float) * 3 * PARTICLES_COUNT);
     if (!points)
@@ -113,7 +112,7 @@ int main(int argc, char** argv)
     {
         glfwPollEvents();
 
-        updateField(dptr, grid, field, PARTICLES_COUNT, 10.0f, W, H);
+        updateField(dptr, grid, field, PARTICLES_COUNT, 1.0f, W, H);
 
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(0.18, 0.35, 0.53, 1.0);

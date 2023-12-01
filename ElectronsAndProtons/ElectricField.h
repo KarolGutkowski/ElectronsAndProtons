@@ -6,16 +6,26 @@
 class ElectricField
 {
 public:
-	int particlesCount;
+	int particles_count;
 	float2* positions;
 	float2* velocities;
 	float2* accelerations;
+	float2* field;
 	int* charges;
+
+	int grid_columns;
+	int grid_rows;
+
+	int* particles_grid_cells_d;
 	float2* positions_d;
 	float2* velocities_d;
 	float2* accelerations_d;
+	float2* field_d;
 	int* charges_d;
-	ElectricField(int particlesCount);
+
+	int field_width;
+	int field_height;
+	ElectricField(int particlesCount, int fieldWidth, int fieldHeight);
 	~ElectricField();
 private:
 	void initializeRandomParticles();

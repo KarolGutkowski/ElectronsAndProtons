@@ -1,20 +1,10 @@
-﻿  Compiling CUDA source file kernel.cu...
-  
-  C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX64\x64" -x cu   -IC:\Users\nope1\source\repos\ElectronsAndProtons\Includes -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include"     --keep-dir x64\Release  -maxrregcount=0   --machine 64 --compile -cudart static    -DWIN32 -DWIN64 -DNDEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /O2 /FS   /MD " -Xcompiler "/Fdx64\Release\vc143.pdb" -o C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\x64\Release\kernel.cu.obj "C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\kernel.cu" 
-  kernel.cu
-  tmpxft_00004558_00000000-7_kernel.cudafe1.cpp
-  glfw_functions.cpp
-  interactions.cpp
-  main.cpp
-  shader_loader.cpp
-  ElectricField.cpp
-C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\ElectricField.cpp(25,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\ElectricField.cpp(48,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+﻿  main.cpp
+C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\main.cpp(118,43): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
      Creating library C:\Users\nope1\source\repos\ElectronsAndProtons\x64\Release\ElectronsAndProtons.lib and object C:\Users\nope1\source\repos\ElectronsAndProtons\x64\Release\ElectronsAndProtons.exp
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Generating code
-  18 of 243 functions ( 7.4%) were compiled, the rest were copied from previous compilation.
-    6 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  2 of 249 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   ElectronsAndProtons.vcxproj -> C:\Users\nope1\source\repos\ElectronsAndProtons\x64\Release\ElectronsAndProtons.exe

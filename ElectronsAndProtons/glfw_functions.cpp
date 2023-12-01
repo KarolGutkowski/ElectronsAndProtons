@@ -34,7 +34,12 @@ GLFWwindow* createGLFWWindow(int width, int height,const char* windowTitle)
 	return window;
 }
 
+void errorCallback(int error, const char* description) {
+	fprintf(stderr, "error %d: %s\n", error, description);
+}
+
 void setupCallbacks(GLFWwindow* window)
 {
 	glfwSetWindowSizeCallback(window, resizeWindowCallback);
+	glfwSetErrorCallback(errorCallback);
 }
