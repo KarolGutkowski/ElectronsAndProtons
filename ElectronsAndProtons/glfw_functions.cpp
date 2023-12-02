@@ -1,5 +1,6 @@
 #include "glfw_functions.h"
 #include "interactions.h"
+#include <sstream>
 
 void initiaLizeGFLW()
 {
@@ -43,3 +44,4 @@ void setupCallbacks(GLFWwindow* window)
 	glfwSetWindowSizeCallback(window, resizeWindowCallback);
 	glfwSetErrorCallback(errorCallback);
 }
+

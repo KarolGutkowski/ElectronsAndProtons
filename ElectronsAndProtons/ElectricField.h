@@ -25,6 +25,11 @@ public:
 
 	int field_width;
 	int field_height;
+
+	int bins_to_check_count;
+	int2* bins;
+	int2* bins_d;
+
 	ElectricField(int particlesCount, int fieldWidth, int fieldHeight);
 	~ElectricField();
 private:

@@ -9,15 +9,15 @@
 #include "ElectricField.h"
 #include <cassert>
 
-#define WINDOW_WIDTH 1920
-#define WINDOW_HEIGHT 1080
-#define PARTICLES_COUNT 100
+#define WINDOW_WIDTH 1280  
+#define WINDOW_HEIGHT 720
+#define PARTICLES_COUNT 10000
 
 int main(int argc, char** argv)
 {
     initiaLizeGFLW();
     setGLFWWindowHints();
-    auto window = createGLFWWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "test");
+    auto window = createGLFWWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Electrons and protons");
     glfwMakeContextCurrent(window);
     loadGlad();
     setupCallbacks(window);
@@ -53,7 +53,7 @@ int main(int argc, char** argv)
     {
         points[3*i] = field->positions[i].x;
         points[3*i +1] = field->positions[i].y;
-        points[3 * i + 2] = 0.0f;
+        points[3 * i + 2] = field->charges[i];
     }
 
     
@@ -108,15 +108,16 @@ int main(int argc, char** argv)
     int W = WINDOW_WIDTH;
     int H = WINDOW_HEIGHT;
 
+    double lastTime = glfwGetTime();
+    int nbFrames = 0;
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
 
-        updateField(dptr, grid, field, PARTICLES_COUNT, 1.0f, W, H);
+        updateField(dptr, grid, field, PARTICLES_COUNT, 0.1f, W, H);
 
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0.18, 0.35, 0.53, 1.0);
-
+        //glClear(GL_COLOR_BUFFER_BIT);
+        
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, W, H, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
         glEnable(GL_TEXTURE_2D);
         glBegin(GL_QUADS);
@@ -136,6 +137,16 @@ int main(int argc, char** argv)
         glUseProgram(0);
 
         glfwSwapBuffers(window);
+        double currentTime = glfwGetTime();
+        nbFrames++;
+        if (currentTime - lastTime >= 1.0) { // If last prinf() was more than 1 sec ago
+            // printf and reset timer
+            auto timePerFrame = 1000.0 / double(nbFrames);
+            auto framesPerSecond = 1000.0 / timePerFrame;
+            printf("%f ms/frame (fps=%f)\n", 1000.0 / double(nbFrames), framesPerSecond);
+            nbFrames = 0;
+            lastTime += 1.0;
+        }
     }
 
     cudaGraphicsUnmapResources(1, &cuda_vbo);

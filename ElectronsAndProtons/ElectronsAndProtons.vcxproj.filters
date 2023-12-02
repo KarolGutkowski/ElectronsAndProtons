@@ -21,7 +21,7 @@
     <ClCompile Include="glad.c">
       <Filter>glad_utilities</Filter>
     </ClCompile>
-    <ClCompile Include="glad._functions.cpp">
+    <ClCompile Include="glad_functions.cpp">
       <Filter>glad_utilities</Filter>
     </ClCompile>
     <ClCompile Include="interactions.cpp" />

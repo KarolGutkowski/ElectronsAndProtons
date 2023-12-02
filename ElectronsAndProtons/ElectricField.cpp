@@ -3,13 +3,13 @@
 #include "ElectricField.h"
 #include "cuda_runtime.h"
 #include "helper_cuda.h"
-
+#include <iostream>
 
 
 ElectricField::ElectricField(int particlesCount, int fieldWidth, int fieldHeight)
 {
-	grid_rows = 10;
-	grid_columns = 10;
+	grid_rows = 40;
+	grid_columns = 40;
 
 	particles_count = particlesCount;
 	field_height = fieldHeight;
@@ -21,12 +21,16 @@ ElectricField::ElectricField(int particlesCount, int fieldWidth, int fieldHeight
 	charges = new int[particlesCount];
 	field = new float2[field_width * field_height];
 
+	bins_to_check_count = 61;
+	bins = new int2[bins_to_check_count];
+
 	cudaMalloc((void**)&particles_grid_cells_d, sizeof(int) * particles_count);
 	cudaMalloc((void**)&positions_d, sizeof(float2) * particles_count);
 	cudaMalloc((void**)&velocities_d, sizeof(float2) * particles_count);
 	cudaMalloc((void**)&accelerations_d, sizeof(float2) * particles_count);
 	cudaMalloc((void**)&charges_d, sizeof(int) * particles_count);
 	cudaMalloc((void**)&field_d, sizeof(float2) * field_height * field_width);
+	cudaMalloc((void**)&bins_d, sizeof(int2) * bins_to_check_count);
 
 
 	initializeRandomParticles();
@@ -39,6 +43,7 @@ ElectricField::~ElectricField()
 	delete[]accelerations;
 	delete[]charges;
 	delete[]field;
+	delete[]bins;
 
 	cudaFree(particles_grid_cells_d);
 	cudaFree(positions_d);
@@ -46,6 +51,7 @@ ElectricField::~ElectricField()
 	cudaFree(accelerations_d);
 	cudaFree(charges_d);
 	cudaFree(field_d);
+	cudaFree(bins_d);
 }
 
 void ElectricField::initializeRandomParticles()
@@ -89,12 +95,31 @@ void ElectricField::initializeRandomParticles()
 		particles_grid_cells[i] = -1;
 	}
 
+	float cutoffDistance = 4.25f;
+	int added = 0;
+	for (int i = -cutoffDistance; i < cutoffDistance+1; i++)
+	{
+		for (int j = -cutoffDistance; j < cutoffDistance + 1; j++)
+		{
+			if (i * i + j * j <= cutoffDistance * cutoffDistance)
+			{
+				bins[added++] = { i,j };
+				std::cout << "(" << i << "," << j << ")" << std::endl;
+			}
+		}
+	}
+	if (added == bins_to_check_count) {
+		std::cout << "intiialized bins" << std::endl;
+	}
+
+
 	checkCudaErrors(cudaMemcpy(particles_grid_cells_d, particles_grid_cells, sizeof(int) * particles_count, cudaMemcpyHostToDevice));
 	checkCudaErrors(cudaMemcpy(positions_d, positions, sizeof(float2) * particles_count, cudaMemcpyHostToDevice));
 	checkCudaErrors(cudaMemcpy(velocities_d, velocities, sizeof(float2) * particles_count, cudaMemcpyHostToDevice));
 	checkCudaErrors(cudaMemcpy(accelerations_d, accelerations, sizeof(float2) * particles_count, cudaMemcpyHostToDevice));
 	checkCudaErrors(cudaMemcpy(field_d, field, sizeof(float2) * field_width*field_height, cudaMemcpyHostToDevice));
 	checkCudaErrors(cudaMemcpy(charges_d, charges, sizeof(int) * particles_count, cudaMemcpyHostToDevice));
+	checkCudaErrors(cudaMemcpy(bins_d, bins, sizeof(int2) * bins_to_check_count, cudaMemcpyHostToDevice));
 }
 
 

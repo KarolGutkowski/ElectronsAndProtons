@@ -85,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
-    <ClCompile Include="glad._functions.cpp" />
+    <ClCompile Include="glad_functions.cpp" />
     <ClCompile Include="glfw_functions.cpp" />
     <ClCompile Include="interactions.cpp" />
     <ClCompile Include="main.cpp" />
