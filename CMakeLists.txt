@@ -10,14 +10,19 @@ find_package(OpenGL REQUIRED)
 add_executable(${CMAKE_PROJECT_NAME})
 
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    ./ElectronsAndProtons/main.cpp
-    ./ElectronsAndProtons/kernel.cu
-    ./ElectronsAndProtons/ElectricField.cpp
-    ./ElectronsAndProtons/glad_functions.cpp
-    ./ElectronsAndProtons/glfw_functions.cpp
-    ./ElectronsAndProtons/interactions.cpp
-    ./ElectronsAndProtons/shader_loader.cpp
-    ./ElectronsAndProtons/glad.c
+    	./ElectronsAndProtons/main.cpp
+    	./ElectronsAndProtons/kernel.cu
+    	./ElectronsAndProtons/ElectricField.cpp
+    	./ElectronsAndProtons/glad_functions.cpp
+    	./ElectronsAndProtons/glfw_functions.cpp
+    	./ElectronsAndProtons/interactions.cpp
+    	./ElectronsAndProtons/shader_loader.cpp
+    	./ElectronsAndProtons/glad.c
+	./ElectronsAndProtons/SimulationScenarios.h
+     	./ElectronsAndProtons/constants.h
+    	./ElectronsAndProtons/cpu_implementation.cpp
+    	./ElectronsAndProtons/cpu_implementation.h
+      	./ElectronsAndProtons/gputimer.h
 )
 
 

@@ -568,6 +568,8 @@ C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\c
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\cpp11_required.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\cstdint.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\dependencies_aware_execution_policy.h
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\device_free.inl
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\device_malloc.inl
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\device_ptr.inl
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\distance.inl
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\execute_with_allocator.h
@@ -649,6 +651,9 @@ C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\t
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\type_traits\result_of_adaptable_function.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\uninitialized_fill.inl
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\detail\use_default.h
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\device_free.h
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\device_malloc.h
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\device_malloc_allocator.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\device_ptr.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\device_reference.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\thrust\distance.h
@@ -953,6 +958,8 @@ C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\vector_function
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\vector_functions.hpp
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\vector_types.h
 C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\ElectricField.h
+C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\gputimer.h
 C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\helper_cuda.h
 C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\helper_string.h
 C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\kernel.h
+C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\SimulationScenarios.h

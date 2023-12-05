@@ -953,6 +953,7 @@ C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\vector_function
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\vector_functions.hpp
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.2\include\vector_types.h
 C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\ElectricField.h
+C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\gputimer.h
 C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\helper_cuda.h
 C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\helper_string.h
 C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\kernel.h

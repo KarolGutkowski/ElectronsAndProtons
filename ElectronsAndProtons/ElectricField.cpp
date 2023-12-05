@@ -21,7 +21,7 @@ ElectricField::ElectricField(int particlesCount, int fieldWidth, int fieldHeight
 	charges = new int[particlesCount];
 	field = new float2[field_width * field_height];
 
-	bins_to_check_count = 61;
+	bins_to_check_count = 61/*19*/;
 	bins = new int2[bins_to_check_count];
 
 	cudaMalloc((void**)&particles_grid_cells_d, sizeof(int) * particles_count);
@@ -58,7 +58,9 @@ void ElectricField::initializeRandomParticles()
 {
 	srand(time(NULL));
 	float planeWidth = 2; // gl plane is from -1 to 1
+	float halfPlaneWidth = 1;
 	float slowDownFactor = 0.001f;
+
 	for (int i = 0; i < particles_count; i++)
 	{
 		float2 acceleration;
@@ -67,10 +69,10 @@ void ElectricField::initializeRandomParticles()
 		float2 velocity;
 		float randomXVelocity = ((float)rand() / RAND_MAX) * slowDownFactor;
 		float randomYVelocity = ((float)rand() / RAND_MAX) * slowDownFactor;
-		velocity = { 0.0f, 0.0f };
+		velocity = { randomXVelocity, randomYVelocity };
 
 		float2 position;
-		float xPosition = (planeWidth * i) / particles_count - 1.0f;
+		float xPosition = (planeWidth * i) / particles_count - halfPlaneWidth;
 		float randomYPosition = ((float)rand() / (float)RAND_MAX) * planeWidth - 1.0f;
 		position = { xPosition, randomYPosition };
 

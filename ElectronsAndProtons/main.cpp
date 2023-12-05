@@ -8,13 +8,26 @@
 #include "cuda_gl_interop.h"
 #include "ElectricField.h"
 #include <cassert>
+#include "constants.h"
+#include "cpu_implementation.h"
 
-#define WINDOW_WIDTH 1280  
-#define WINDOW_HEIGHT 720
-#define PARTICLES_COUNT 10000
+void displayMsPerFrame(double& lastTime);
+
+bool run_cpu = false;
 
 int main(int argc, char** argv)
 {
+    if (argc != 0)
+    {
+        for (int i = 1; i < argc; i++)
+        {
+            if (strcmp(argv[i],"-cpu")==0)
+            {
+                run_cpu = true;
+            }
+        }
+    }
+
     initiaLizeGFLW();
     setGLFWWindowHints();
     auto window = createGLFWWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Electrons and protons");
@@ -84,7 +97,23 @@ int main(int argc, char** argv)
     GLuint pbo = 0;;
     glGenBuffers(1, &pbo);
     glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
-    glBufferData(GL_PIXEL_UNPACK_BUFFER, 3 * WINDOW_WIDTH * WINDOW_HEIGHT * sizeof(GLubyte), 0, GL_STREAM_DRAW);
+
+    uchar3* cpu_grid = (uchar3*)malloc(sizeof(uchar3) * WINDOW_WIDTH * WINDOW_HEIGHT);
+
+    if (!cpu_grid)
+    {
+        std::cout << "failed to allocate cpu grid" << std::endl;
+        return -1;
+    }
+
+    for (int i = 0; i < WINDOW_WIDTH * WINDOW_HEIGHT; i++)
+    {
+        cpu_grid[i].x = 0;
+        cpu_grid[i].y = 0;
+        cpu_grid[i].z = 0;
+    }
+
+    glBufferData(GL_PIXEL_UNPACK_BUFFER, 3 * WINDOW_WIDTH * WINDOW_HEIGHT * sizeof(GLubyte), cpu_grid, GL_STREAM_DRAW);
 
     GLuint tex = 0;
     glGenTextures(1, &tex);
@@ -92,32 +121,41 @@ int main(int argc, char** argv)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    cudaGraphicsResource* cuda_vbo, * cuda_pbo;
-    cudaGraphicsGLRegisterBuffer(&cuda_vbo, vertices, cudaGraphicsRegisterFlagsWriteDiscard);
-    cudaGraphicsMapResources(1, &cuda_vbo);
-
     float* dptr;
-    cudaGraphicsResourceGetMappedPointer((void**)&dptr, NULL, cuda_vbo);
-
-    cudaGraphicsGLRegisterBuffer(&cuda_pbo, pbo, cudaGraphicsRegisterFlagsWriteDiscard);
-    cudaGraphicsMapResources(1, &cuda_pbo);
-
     uchar3* grid = 0;
-    cudaGraphicsResourceGetMappedPointer((void**)&grid, NULL, cuda_pbo);
-
     int W = WINDOW_WIDTH;
     int H = WINDOW_HEIGHT;
+    cudaGraphicsResource* cuda_vbo, * cuda_pbo;
+    if (!run_cpu)
+    {
+        cudaGraphicsGLRegisterBuffer(&cuda_vbo, vertices, cudaGraphicsRegisterFlagsWriteDiscard);
+        cudaGraphicsMapResources(1, &cuda_vbo);
 
+        cudaGraphicsResourceGetMappedPointer((void**)&dptr, NULL, cuda_vbo);
+
+        cudaGraphicsGLRegisterBuffer(&cuda_pbo, pbo, cudaGraphicsRegisterFlagsWriteDiscard);
+        cudaGraphicsMapResources(1, &cuda_pbo);
+
+        cudaGraphicsResourceGetMappedPointer((void**)&grid, NULL, cuda_pbo);
+    }
     double lastTime = glfwGetTime();
     int nbFrames = 0;
+
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
 
-        updateField(dptr, grid, field, PARTICLES_COUNT, 0.1f, W, H);
+        float dt = 0.1f;
+        if (!run_cpu)
+            updateField(dptr, grid, field, PARTICLES_COUNT, dt, W, H);
+        else
+        {
+            updateField(field, points, W, H, PARTICLES_COUNT, dt, cpu_grid);
+            glBufferData(GL_PIXEL_UNPACK_BUFFER, 3 * WINDOW_WIDTH * WINDOW_HEIGHT * sizeof(GLubyte), cpu_grid, GL_STREAM_DRAW);
+        }
 
-        //glClear(GL_COLOR_BUFFER_BIT);
         
+        glClear(GL_COLOR_BUFFER_BIT);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, W, H, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
         glEnable(GL_TEXTURE_2D);
         glBegin(GL_QUADS);
@@ -137,20 +175,14 @@ int main(int argc, char** argv)
         glUseProgram(0);
 
         glfwSwapBuffers(window);
-        double currentTime = glfwGetTime();
-        nbFrames++;
-        if (currentTime - lastTime >= 1.0) { // If last prinf() was more than 1 sec ago
-            // printf and reset timer
-            auto timePerFrame = 1000.0 / double(nbFrames);
-            auto framesPerSecond = 1000.0 / timePerFrame;
-            printf("%f ms/frame (fps=%f)\n", 1000.0 / double(nbFrames), framesPerSecond);
-            nbFrames = 0;
-            lastTime += 1.0;
-        }
+        displayMsPerFrame(lastTime);
     }
 
-    cudaGraphicsUnmapResources(1, &cuda_vbo);
-    cudaGraphicsUnmapResources(1, &cuda_pbo);
+    if (!run_cpu)
+    {
+        cudaGraphicsUnmapResources(1, &cuda_vbo);
+        cudaGraphicsUnmapResources(1, &cuda_pbo);
+    }
 
     glDeleteBuffers(1, &pbo);
     glDeleteTextures(1, &tex);
@@ -158,4 +190,20 @@ int main(int argc, char** argv)
 
     glfwTerminate();
     return 0;
+}
+
+
+int nbFrames = 0;
+void displayMsPerFrame(double& lastTime)
+{
+    double currentTime = glfwGetTime();
+    nbFrames++;
+    if (currentTime - lastTime >= 1.0) {
+        double elapsed = currentTime - lastTime;
+        auto timePerFrame = elapsed* 1000.0 / double(nbFrames);
+        auto framesPerSecond = 1000.0 / timePerFrame;
+        printf("%f ms/frame (fps=%f)\n", timePerFrame, framesPerSecond);
+        nbFrames = 0;
+        lastTime += 1.0;
+    }
 }

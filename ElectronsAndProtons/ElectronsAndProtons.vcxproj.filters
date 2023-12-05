@@ -30,6 +30,7 @@
     </ClCompile>
     <ClCompile Include="ElectricField.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="cpu_implementation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glfw_functions.h">
@@ -49,6 +50,10 @@
     <ClInclude Include="ElectricField.h" />
     <ClInclude Include="helper_cuda.h" />
     <ClInclude Include="helper_string.h" />
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="gputimer.h" />
+    <ClInclude Include="cpu_implementation.h" />
+    <ClInclude Include="SimulationScenarios.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_shaders.glsl">
