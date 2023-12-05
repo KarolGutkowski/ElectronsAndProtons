@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\nope1\source\repos\ElectronsAndProtons\build\CMakeFiles\9239ccbf82e164861f9c70f42e4249a9\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{AED0B7BD-780D-3ABA-BC15-86B402AC7AB0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

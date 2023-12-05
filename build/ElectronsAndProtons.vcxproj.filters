@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\ElectricField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\glad_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\glfw_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\interactions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\shader_loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\cpu_implementation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\SimulationScenarios.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\cpu_implementation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\nope1\source\repos\ElectronsAndProtons\ElectronsAndProtons\gputimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="..\ElectronsAndProtons\kernel.cu">
+      <Filter>Source Files</Filter>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\nope1\source\repos\ElectronsAndProtons\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{E0AEE2F4-A0F9-3CEA-8C13-A6102BC49A99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{638D8C2A-25F7-36CB-AC77-21DC8F150109}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
