@@ -4,10 +4,12 @@
 #include "cuda_runtime.h"
 #include "helper_cuda.h"
 #include <iostream>
+#include <chrono>
 
 
 ElectricField::ElectricField(int particlesCount, int fieldWidth, int fieldHeight)
 {
+	auto start_time = std::chrono::high_resolution_clock::now();
 	grid_rows = 40;
 	grid_columns = 40;
 
@@ -34,6 +36,9 @@ ElectricField::ElectricField(int particlesCount, int fieldWidth, int fieldHeight
 
 
 	initializeRandomParticles();
+	auto end_time = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+	std::cout << "Data generation time: " << duration.count() << " milliseconds" << std::endl;
 }
 
 ElectricField::~ElectricField()
@@ -106,15 +111,15 @@ void ElectricField::initializeRandomParticles()
 			if (i * i + j * j <= cutoffDistance * cutoffDistance)
 			{
 				bins[added++] = { i,j };
-				std::cout << "(" << i << "," << j << ")" << std::endl;
+				//std::cout << "(" << i << "," << j << ")" << std::endl;
 			}
 		}
 	}
-	if (added == bins_to_check_count) {
+	/*if (added == bins_to_check_count) {
 		std::cout << "intiialized bins" << std::endl;
-	}
+	}*/
 
-
+	auto start_time = std::chrono::high_resolution_clock::now();
 	checkCudaErrors(cudaMemcpy(particles_grid_cells_d, particles_grid_cells, sizeof(int) * particles_count, cudaMemcpyHostToDevice));
 	checkCudaErrors(cudaMemcpy(positions_d, positions, sizeof(float2) * particles_count, cudaMemcpyHostToDevice));
 	checkCudaErrors(cudaMemcpy(velocities_d, velocities, sizeof(float2) * particles_count, cudaMemcpyHostToDevice));
@@ -122,6 +127,9 @@ void ElectricField::initializeRandomParticles()
 	checkCudaErrors(cudaMemcpy(field_d, field, sizeof(float2) * field_width*field_height, cudaMemcpyHostToDevice));
 	checkCudaErrors(cudaMemcpy(charges_d, charges, sizeof(int) * particles_count, cudaMemcpyHostToDevice));
 	checkCudaErrors(cudaMemcpy(bins_d, bins, sizeof(int2) * bins_to_check_count, cudaMemcpyHostToDevice));
+	auto end_time = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time);
+	std::cout << "Data copying from CPU-GPU time: " << duration.count()/(float)1000000 << " miliseconds" << std::endl;
 }
 
 

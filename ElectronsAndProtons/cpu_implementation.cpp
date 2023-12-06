@@ -1,5 +1,6 @@
 #include "cpu_implementation.h"
 #include <iostream>
+#include <chrono>
 
 void calculate_intensity(float2* field, uchar3* grid, int width, int height, float* positions, int* charges, int particles_count);
 void update_particles(float* positions, float2* field, int* charges, int particles_count, int width, int height, float2* velocities, float2* accelerations, float dt);
@@ -10,9 +11,21 @@ void update_particles(float* positions, float2* field, int* charges, int particl
 // grid - purely opengl display
 // charges - for calculation purposes
 ///
+int calculationsPerformed = 0;
+long long summedCalculations = 0;
 void updateField(ElectricField* field,float* positions, int width, int height, int particles_count, float dt, uchar3* grid)
 {
+	auto start_time = std::chrono::high_resolution_clock::now();
 	calculate_intensity(field->field, grid, width, height, positions, field->charges, particles_count);
+	auto end_time = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+
+	summedCalculations += duration.count();
+	if (++calculationsPerformed % 100 ==0)
+	{
+		std::cout << "Average CPU time: " << summedCalculations/ calculationsPerformed << " milliseconds" << std::endl;
+	}
+
 	update_particles(positions, field->field, field->charges, particles_count, width, height, field->velocities, field->accelerations, dt);
 }
 

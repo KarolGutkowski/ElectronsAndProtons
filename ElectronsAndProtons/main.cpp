@@ -169,6 +169,12 @@ int main(int argc, char** argv)
         glUseProgram(program);
 
         glBindVertexArray(VAO);
+
+        if (run_cpu)
+        {
+            glBindBuffer(GL_ARRAY_BUFFER, vertices);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(float) * PARTICLES_COUNT * 3, points, GL_DYNAMIC_DRAW);
+        }
         glDrawArrays(GL_POINTS, 0, PARTICLES_COUNT);
 
         glBindVertexArray(0);
