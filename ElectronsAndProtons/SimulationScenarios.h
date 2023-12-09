@@ -4,6 +4,5 @@ enum SimulationScenario
 {
 	Default = 0,
 	CenterCharge = 1,
-	TwoEdgeCharges = 2
 };
 #endif // !SimulationScenario

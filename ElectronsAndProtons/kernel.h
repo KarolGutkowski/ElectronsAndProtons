@@ -7,4 +7,5 @@ void updateField(
 	ElectricField* field, 
 	int particlesCount, 
 	float dt, int width, 
-	int height);
+	int height,
+	SimulationScenario scenario);

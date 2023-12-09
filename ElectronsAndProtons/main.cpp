@@ -14,6 +14,8 @@
 void displayMsPerFrame(double& lastTime);
 
 bool run_cpu = false;
+int particles_count = PARTICLES_COUNT;
+SimulationScenario scenario = SimulationScenario::Default;
 
 int main(int argc, char** argv)
 {
@@ -24,6 +26,35 @@ int main(int argc, char** argv)
             if (strcmp(argv[i],"-cpu")==0)
             {
                 run_cpu = true;
+            }
+            else if (strcmp(argv[i], "--count") == 0)
+            {
+                if (argc <= i + 1)
+                {
+                    printf("expected: --count [number of particles]");
+                }
+                else
+                {
+                    particles_count = strtol(argv[i+1], NULL, 10);
+                }
+            }
+            else if (strcmp(argv[i], "--scenario") == 0)
+            {
+                if (argc <= i + 1)
+                {
+                    printf("expected: --scenario [0/1/2]");
+                }
+                else
+                {
+                    switch (argv[i + 1][0]) {
+                    case '0':
+                        scenario = SimulationScenario::Default;
+                        break;
+                    case '1':
+                        scenario = SimulationScenario::CenterCharge;
+                        break;
+                    }
+                }
             }
         }
     }
@@ -45,16 +76,16 @@ int main(int argc, char** argv)
 
     GLuint program = getProgramFrom("basic_shaders.glsl");
 
-    ElectricField* field = new ElectricField(PARTICLES_COUNT, WINDOW_WIDTH, WINDOW_HEIGHT);
+    ElectricField* field = new ElectricField(particles_count, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    float* points = (float*)malloc(sizeof(float) * 3 * PARTICLES_COUNT);
+    float* points = (float*)malloc(sizeof(float) * 3 * particles_count);
     if (!points)
     {
         std::cout << "failed to allocate points" << std::endl;
         return -1;
     }
 
-    memset(points, 0, sizeof(float) * 3 * PARTICLES_COUNT);
+    memset(points, 0, sizeof(float) * 3 * particles_count);
 
     if (!points)
     {
@@ -62,7 +93,7 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    for (int i = 0; i < PARTICLES_COUNT; i++)
+    for (int i = 0; i < particles_count; i++)
     {
         points[3*i] = field->positions[i].x;
         points[3*i +1] = field->positions[i].y;
@@ -81,7 +112,7 @@ int main(int argc, char** argv)
     GLuint vertices;
     glGenBuffers(1, &vertices);
     glBindBuffer(GL_ARRAY_BUFFER, vertices);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * PARTICLES_COUNT*3, points, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * particles_count *3, points, GL_DYNAMIC_DRAW);
 
     GLuint VAO;
     glGenVertexArrays(1, &VAO);
@@ -147,10 +178,10 @@ int main(int argc, char** argv)
 
         float dt = 0.1f;
         if (!run_cpu)
-            updateField(dptr, grid, field, PARTICLES_COUNT, dt, W, H);
+            updateField(dptr, grid, field, particles_count, dt, W, H, scenario);
         else
         {
-            updateField(field, points, W, H, PARTICLES_COUNT, dt, cpu_grid);
+            updateField(field, points, W, H, particles_count, dt, cpu_grid);
             glBufferData(GL_PIXEL_UNPACK_BUFFER, 3 * WINDOW_WIDTH * WINDOW_HEIGHT * sizeof(GLubyte), cpu_grid, GL_STREAM_DRAW);
         }
 
@@ -173,9 +204,9 @@ int main(int argc, char** argv)
         if (run_cpu)
         {
             glBindBuffer(GL_ARRAY_BUFFER, vertices);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(float) * PARTICLES_COUNT * 3, points, GL_DYNAMIC_DRAW);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(float) * particles_count * 3, points, GL_DYNAMIC_DRAW);
         }
-        glDrawArrays(GL_POINTS, 0, PARTICLES_COUNT);
+        glDrawArrays(GL_POINTS, 0, particles_count);
 
         glBindVertexArray(0);
         glUseProgram(0);

@@ -168,7 +168,7 @@ __global__ void intensityKernel(
 	}
 
 	//symulacja ładunku w środku
-	/*if (scenario == SimulationScenario::CenterCharge && pixelPosition.x != 0 && pixelPosition.y != 0)
+	if (scenario == SimulationScenario::CenterCharge && pixelPosition.x != 0 && pixelPosition.y != 0)
 	{
 		float distanceToCenter = sqrtf(pixelPosition.x * pixelPosition.x + pixelPosition.y * pixelPosition.y);
 		float scalarIntensity = 100 / distanceToCenter;
@@ -176,22 +176,6 @@ __global__ void intensityKernel(
 		totalIntensity.x += scalarIntensity * (pixelPosition.x / distanceToCenter);
 		totalIntensity.y += scalarIntensity * (pixelPosition.y / distanceToCenter);
 	}
-	else if (scenario == SimulationScenario::TwoEdgeCharges &&  pixelPosition.y != 0 && (pixelPosition.x != -1 || pixelPosition.x != 1))
-	{
-		float dxR = pixelPosition.x - 1;
-		float dxL = pixelPosition.x + 1;
-
-		float distanceToLeft = sqrtf(dxL * dxL + pixelPosition.y * pixelPosition.y);
-		float distanceToRight = sqrtf(dxR * dxR + pixelPosition.y * pixelPosition.y);
-		float intensityFromLeft = 100 / distanceToLeft;
-		float intensityFromRight = -100 / distanceToRight;
-
-
-		totalIntensity.z += intensityFromLeft + intensityFromRight;
-		totalIntensity.x += intensityFromLeft * (pixelPosition.x / distanceToLeft) + intensityFromRight * (pixelPosition.x / distanceToRight);
-		totalIntensity.y += intensityFromLeft * (pixelPosition.y / distanceToLeft) + intensityFromRight * (pixelPosition.y / distanceToRight);
-
-	}*/
 
 	// idx = row * width + column - using the right hand to save few registers
 	float intensity = totalIntensity.z;
@@ -393,7 +377,8 @@ __host__ void updateField(
 	int particlesCount, 
 	float dt, 
 	int width, 
-	int height)
+	int height,
+	SimulationScenario scenario)
 {
 	float planeWidth = 2;
 	float planeHeight = 2;
@@ -467,7 +452,7 @@ __host__ void updateField(
 		field->grid_rows, // same as column but for rows count
 		//field->particles_grid_cells_d, // array that tells us in which grid cell a certain particle is?
 		grid_cells_indices,
-		SimulationScenario::Default); // array with beggining and ends of bins/cells
+		scenario); // array with beggining and ends of bins/cells
 
 	err = cudaGetLastError();
 	if (err != cudaSuccess)
