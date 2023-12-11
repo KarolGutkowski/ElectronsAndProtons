@@ -1,0 +1,18 @@
+Żeby skompilować projekt z cmake polecam
+1. stworzyc folder (np. o nazwie build): mkdir build
+2. przejść do nowo utworzonego folderu: cd build
+3. wykonać polecenie: cmake -S .. -B .
+4. wykonać polecenie: cmake --build .  (ważna kropka na końcu, oznaczająca obecny katalog, tj, katalog build)
+5. przejść do folderu Debug: cd Debug
+6. uruchomić program: ElectronsAndProtons.exe
+
+dostępne są dodatkowo opcje uruchomienia (ale żadna nie jest konieczna):
+-cpu : uruchomienie algorytmu cpu
+--count [liczba cząstek] (np. --count 10000, bez tej opcji podstawowo przyjmuję 10000)
+--scenario [0/1] (uruchomienie dostępnych scenariuszy 
+0 - scenariusz podstawowy z losowym rozmieszczeniem cząstek,
+1 -scenariusz z dodatkowym ładunkiem na środku ekranu)
+czyli np. możemy uruchomic tak: ElectronsAndProtons.exe --count 10000 --scenario 1
+
+
+Dodatkowo załączyłem plik .exe skompilowany na moim komputerze w katalogu głównym
